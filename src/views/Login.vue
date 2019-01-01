@@ -1,5 +1,5 @@
 <template>
-  <div id="content">
+  <div id="loginArea">
     <div class="form-area" id="formArea">
       <img class="logo" src="/img/logo.png" />
       <p class="title">OpenObject MS v2.0</p>
@@ -11,7 +11,7 @@
                     placeholder="Password"></b-form-input>
       <b-button v-on:click="handleLogin"
                 variant="outline-primary"
-                block="true"
+                :block="true"
                 size="lg">Login</b-button>
     </div>
   </div>
@@ -19,10 +19,11 @@
 
 <script>
 import common from '../assets/js/common'
+import api from '../assets/js/api'
 
 export default {
   name: 'login',
-  mixins: [common],
+  mixins: [common, api],
   data: () => {
     return {
       userId: '',
@@ -37,23 +38,20 @@ export default {
         alert('ID와 비밀번호를 입력해주세요')
         return false
       }
-      console.log('handleLogin', this.id)
-
-      let response = await this.requestPostJson('http://localhost:8000/login', {
-        userId: this.userId,
-        password: this.password
-      })
-
-      console.log('response ', response)
-      if (response.data.key === 'value') {
-        this.$router.push('mypage')
+      try {
+        await this.login({ userId: this.userId, password: this.password })
+      } catch (e) {
+        console.error(e)
+        alert('로그인에 실패하였습니다. 다시 시도해주세요.')
+        return false
       }
+      this.$router.push('main')
     }
   }
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .form-area {
   position: absolute;
   width: 15rem;
@@ -88,9 +86,9 @@ export default {
   }
 }
 
-body {
+#loginArea {
   width: 100wh;
-  height: 90vh;
+  height: 100vh;
   color: #fff;
   background: linear-gradient(-45deg, #f15b4c, #9e1bb5, #23a6d5, #23d5ab);
   background-size: 400% 400%;
