@@ -9,7 +9,7 @@ export default {
     login: async function (data) {
       const response = await this.$http.post(`${apiDomain}/login`, data, httpConfig)
       httpConfig['jwt-header'] = response.headers['jwt-header']
-      this.$router.push('main')
+      console.log(response.headers['jwt-header'])
       return response
     }
   }

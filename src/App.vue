@@ -1,10 +1,23 @@
 <template>
   <div id="app">
-    <router-view/>
+    <transition-page>
+      <router-view/>
+    </transition-page>
   </div>
 </template>
 
-<style lang="less">
+<script>
+import TransitionPage from './transitions/TransitionPage.vue'
+
+export default {
+  name: 'app',
+  components: {
+    TransitionPage
+  }
+}
+</script>
+
+<style lang="less" scoped>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
