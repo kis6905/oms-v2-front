@@ -64,7 +64,7 @@ export default {
   -moz-animation: Gradient 10s ease infinite;
   animation: Gradient 10s ease infinite;
 
-  .form-area {
+  .form-area { 
     position: absolute;
     width: 15rem;
     left: 50%;
