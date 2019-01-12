@@ -38,7 +38,6 @@ export default {
         alert('ID와 비밀번호를 입력해주세요')
         return false
       }
-      // test
       // try {
       //   await this.login({ userId: this.userId, password: this.password })
       // } catch (e) {
