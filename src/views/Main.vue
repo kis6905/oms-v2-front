@@ -26,7 +26,7 @@
                   class="text-center menu-item"
                   v-on:click="handleProejct">
             <p class="card-text">
-              지출결의
+              지출결의(보류)
             </p>
           </b-card>
         </div>
