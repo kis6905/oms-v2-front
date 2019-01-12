@@ -12,7 +12,7 @@
           <b-button v-on:click="handleProejct"
                     variant="outline-primary"
                     :block="true"
-                    size="lg">지출결의</b-button>
+                    size="lg">지출결의(보류)</b-button>
           <b-card title="Proejct"
                   text-variant="primary"
                   class="text-center menu-item"
