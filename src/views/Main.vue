@@ -5,30 +5,21 @@
       <div class="contents">
         <Notice></Notice>
         <div class="menu-button-area">
-          <b-button v-on:click="handleProejct"
+          <b-button v-on:click="handleMenu"
+                    data-path="/project"
                     variant="outline-primary"
                     :block="true"
                     size="lg">Project</b-button>
-          <b-button v-on:click="handleProejct"
+          <b-button v-on:click="handleMenu"
+                    data-path="/weekly_report"
                     variant="outline-primary"
                     :block="true"
-                    size="lg">지출결의</b-button>
-          <b-card title="Proejct"
-                  text-variant="primary"
-                  class="text-center menu-item"
-                  v-on:click="handleProejct">
-            <p class="card-text">
-              Project 조회 및 주간보고, 지출결의 작성이 가능합니다.
-            </p>
-          </b-card>
-          <b-card title="지출결의"
-                  text-variant="primary"
-                  class="text-center menu-item"
-                  v-on:click="handleProejct">
-            <p class="card-text">
-              지출결의
-            </p>
-          </b-card>
+                    size="lg">주간보고</b-button>
+          <b-button v-on:click="handleMenu"
+                    data-path="/admin/user"
+                    variant="outline-primary"
+                    :block="true"
+                    size="lg">직원관리</b-button>
         </div>
       </div>
     </div>
@@ -59,9 +50,8 @@ export default {
     console.log('created')
   },
   methods: {
-    handleProejct (event) {
-      console.log('handleProejct')
-      this.$router.push('/project')
+    handleMenu (event) {
+      this.$router.push(event.target.dataset.path)
     }
   }
 }
