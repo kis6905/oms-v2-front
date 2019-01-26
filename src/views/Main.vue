@@ -47,7 +47,6 @@ export default {
   },
   created () {
     // TODO: getMenuList
-    // test
     console.log('created')
   },
   methods: {
