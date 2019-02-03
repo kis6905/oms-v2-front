@@ -1,12 +1,15 @@
 <template>
   <div class="contents">
     <Navbar></Navbar>
-    <h2>This is Project page</h2>
+    <div>
+      <CurrentProject></CurrentProject>
+    </div>
   </div>
 </template>
 
 <script>
 import Navbar from '../components/main/NavbarMain.vue'
+import CurrentProject from '../components/project/CurrentProject.vue'
 import common from '../assets/js/common'
 import api from '../assets/js/api'
 
@@ -14,7 +17,8 @@ export default {
   name: 'project',
   mixins: [common, api],
   components: {
-    Navbar
+    Navbar,
+    CurrentProject
   },
   data () {
     return {
@@ -32,7 +36,5 @@ export default {
 .contents {
   width: 100wh;
   height: 100vh;
-  background-color: #378fe2;
-  color: white;
 }
 </style>
