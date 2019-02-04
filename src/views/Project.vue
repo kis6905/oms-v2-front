@@ -7,8 +7,9 @@
       </div>
       <div class="list-container">
         <b-card-group deck class="mb-3">
-            <b-card v-for="item in projectList"
-                    :key="item.seq"
+          <div v-for="item in projectList"
+               :key="item.seq">
+            <b-card v-if="isCurrentProject(item)"
                     border-variant="info"
                     :header="item.project.projectName"
                     header-bg-variant="info"
@@ -17,8 +18,32 @@
                     @click="handleCurrentProject"
                     :data-project-id="item.seq">
               <p class="card-text">발주처: {{ item.project.projectClient }}</p>
-              <p class="card-text">기간: {{ item.project.projectStartDate.substring(0, 10) }} ~ {{ item.project.projectEndDate.substring(0, 10) }}</p>
+              <p class="card-text">기간: {{ projectPeriod(item) }}</p>
             </b-card>
+          </div>
+        </b-card-group>
+      </div>
+    </div>
+    <div>
+      <div class="title">
+        <h4>참여했던 프로젝트</h4>
+      </div>
+      <div class="list-container">
+        <b-card-group deck class="mb-3">
+          <div v-for="item in projectList"
+               :key="item.seq">
+            <b-card v-if="isPastProject(item)"
+                    border-variant="default"
+                    :header="item.project.projectName"
+                    header-bg-variant="default"
+                    header-text-variant="black"
+                    align="center"
+                    @click="handleCurrentProject"
+                    :data-project-id="item.seq">
+              <p class="card-text">발주처: {{ item.project.projectClient }}</p>
+              <p class="card-text">기간: {{ projectPeriod(item) }}</p>
+            </b-card>
+          </div>
         </b-card-group>
       </div>
     </div>
@@ -54,6 +79,21 @@ export default {
     },
     handleCurrentProject (event) {
       console.log(event)
+    },
+    isCurrentProject (item) {
+      const now = new Date()
+      return item.project.projectStatus === '0' &&
+             this.dateDiff(now, item.withdrawalDate) >= 0 &&
+             this.dateDiff(now, item.project.projectEndDate) >= 0
+    },
+    isPastProject (item) {
+      const now = new Date()
+      return item.project.projectStatus !== '0' ||
+             this.dateDiff(now, item.withdrawalDate) <= 0 ||
+             this.dateDiff(now, item.project.projectEndDate) <= 0
+    },
+    projectPeriod (item) {
+      return `${item.project.projectStartDate.substring(0, 10)} ~ ${item.project.projectEndDate.substring(0, 10)}`
     }
   }
 }
@@ -67,10 +107,10 @@ export default {
   .title {
     width: 100%;
     color: white;
-    background-color: rgb(78, 119, 180);
+    // background-color: #479de6;
+    background: linear-gradient(-45deg, #863fe6, #1a94ce);
     margin-top: 1px;
     text-align: center;
-    font-size: 15px;
     padding: 10px 0 2px 0;
   }
 
