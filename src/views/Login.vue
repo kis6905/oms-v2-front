@@ -38,13 +38,13 @@ export default {
         alert('ID와 비밀번호를 입력해주세요')
         return false
       }
-      // try {
-      //   await this.login({ userId: this.userId, password: this.password })
-      // } catch (e) {
-      //   console.error(e)
-      //   alert('로그인에 실패하였습니다. 다시 시도해주세요.')
-      //   return false
-      // }
+      try {
+        await this.login({ userId: this.userId, password: this.password })
+      } catch (e) {
+        console.error(e)
+        alert('로그인에 실패하였습니다. 다시 시도해주세요.')
+        return false
+      }
 
       this.$refs.loginArea.classList.add('no-animation')
       this.$router.push('main')
