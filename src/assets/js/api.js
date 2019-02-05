@@ -14,16 +14,14 @@ const apiDomain = process.env.VUE_APP_API_DOMAIN
 
 export default {
   methods: {
-    login: async function (data) {
+    async login (data) {
       const response = await this.$http.post(`${apiDomain}/login`, data, postConfig)
       const jwtHeader = response.headers['jwt-header']
       postConfig.headers['jwt-header'] = jwtHeader
       getConfig.headers['jwt-header'] = jwtHeader
-      console.log(jwtHeader)
       return response
     },
-    getProjectList: function () {
-      console.log(getConfig)
+    getProjectList () {
       return this.$http.get(`${apiDomain}/project/list`, getConfig)
     }
   }
