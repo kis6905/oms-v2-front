@@ -47,7 +47,7 @@ export default {
       }
 
       this.$refs.loginArea.classList.add('no-animation')
-      this.$router.push('main')
+      this.$router.push('service')
     }
   }
 }
@@ -64,7 +64,7 @@ export default {
   -moz-animation: Gradient 10s ease infinite;
   animation: Gradient 10s ease infinite;
 
-  .form-area { 
+  .form-area {
     position: absolute;
     width: 15rem;
     left: 50%;

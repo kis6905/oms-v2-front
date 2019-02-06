@@ -1,6 +1,6 @@
 <template>
   <div class="empty-area" v-if="isShow">
-    데이터가 없습니다.
+    <v-icon name="info"></v-icon> 데이터가 없습니다.
   </div>
 </template>
 

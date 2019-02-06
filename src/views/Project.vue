@@ -1,9 +1,9 @@
 <template>
-  <div class="contents">
-    <Navbar></Navbar>
+  <div>
     <div>
       <div class="title">
-        <h4>현재 투입된 프로젝트</h4>
+        <v-icon name="clipboard"></v-icon>
+        현재 투입된 프로젝트
       </div>
       <div class="list-container">
         <EmptyData :isShow="currentProjectList.length === 0"></EmptyData>
@@ -25,7 +25,8 @@
     </div>
     <div>
       <div class="title">
-        <h4>참여했던 프로젝트</h4>
+        <v-icon name="clipboard"></v-icon>
+        참여했던 프로젝트
       </div>
       <div class="list-container">
         <EmptyData :isShow="pastProjectList.length === 0"></EmptyData>
@@ -51,6 +52,7 @@
              ok-only
              header-bg-variant="primary"
              header-text-variant="light"
+             header-border-variant="primary"
              footer-bg-variant="light"
              footer-text-variant="dark"
              :title="selectedProject.project ? selectedProject.project.projectName : ''">
@@ -58,7 +60,6 @@
       <p class="my-4">기간: {{ selectedProject.project ? projectPeriod(selectedProject) : '' }}</p>
       <p class="my-4">상태: {{ projectStatus }}</p>
       <p class="my-4">내용: {{ selectedProject.project ? selectedProject.project.projectDescription : '' }}</p>
-      
       <div slot="modal-footer">
          <b-btn size="sm" class="float-right" variant="primary" @click="isShowDetail=false">
            확인
@@ -69,7 +70,6 @@
 </template>
 
 <script>
-import Navbar from '../components/main/NavbarMain.vue'
 import EmptyData from '../components/common/EmptyData.vue'
 import common from '../assets/js/common'
 import api from '../assets/js/api'
@@ -78,7 +78,6 @@ export default {
   name: 'project',
   mixins: [common, api],
   components: {
-    Navbar,
     EmptyData
   },
   data () {
@@ -106,7 +105,7 @@ export default {
     },
     handleCurrentProject (event) {
       const projectSeq = event.currentTarget.dataset.projectSeq
-      this.selectedProject = this.projectList.find(item => item.project.seq == projectSeq)
+      this.selectedProject = this.projectList.find(item => String(item.project.seq) === projectSeq)
       this.isShowDetail = true
     },
     projectPeriod (item) {
@@ -123,7 +122,6 @@ export default {
   },
   computed: {
     projectStatus () {
-      const now = new Date()
       if (!this.selectedProject || !this.selectedProject.project) return ''
       return this.isCurrentProject(this.selectedProject) ? '진행 중' : '종료'
     }
@@ -132,21 +130,18 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.contents {
-  width: 100wh;
-  height: 100vh;
+.title {
+  width: 100%;
+  color: white;
+  background: linear-gradient(-45deg, #863fe6, #1a94ce);
+  margin-top: 1px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 5px 0 5px 0;
+}
 
-  .title {
-    width: 100%;
-    color: white;
-    background: linear-gradient(-45deg, #863fe6, #1a94ce);
-    margin-top: 1px;
-    text-align: center;
-    padding: 10px 0 2px 0;
-  }
-
-  .list-container {
-    margin: 10px 20px;
-  }
+.list-container {
+  margin: 10px 20px;
 }
 </style>
