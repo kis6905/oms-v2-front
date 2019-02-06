@@ -38,16 +38,16 @@ export default {
         alert('ID와 비밀번호를 입력해주세요')
         return false
       }
-      // try {
-      //   await this.login({ userId: this.userId, password: this.password })
-      // } catch (e) {
-      //   console.error(e)
-      //   alert('로그인에 실패하였습니다. 다시 시도해주세요.')
-      //   return false
-      // }
+      try {
+        await this.login({ userId: this.userId, password: this.password })
+      } catch (e) {
+        console.error(e)
+        alert('로그인에 실패하였습니다. 다시 시도해주세요.')
+        return false
+      }
 
       this.$refs.loginArea.classList.add('no-animation')
-      this.$router.push('main')
+      this.$router.push('service')
     }
   }
 }
@@ -64,7 +64,7 @@ export default {
   -moz-animation: Gradient 10s ease infinite;
   animation: Gradient 10s ease infinite;
 
-  .form-area { 
+  .form-area {
     position: absolute;
     width: 15rem;
     left: 50%;

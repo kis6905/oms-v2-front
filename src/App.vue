@@ -17,11 +17,14 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #000;
+}
+.icon {
+  width: 20px;
 }
 </style>

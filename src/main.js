@@ -5,6 +5,7 @@ import store from './store'
 import './registerServiceWorker'
 import axios from 'axios'
 import BootstrapVue from 'bootstrap-vue'
+import feather from 'vue-icon'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -12,6 +13,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.use(BootstrapVue)
+
+Vue.use(feather, 'v-icon')
 
 new Vue({
   router,
