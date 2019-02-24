@@ -6,8 +6,7 @@ const postConfig = {
 }
 const getConfig = {
   headers: {
-    'Access-Control-Allow-Origin': '*',
-    'jwt-header': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4sUk9MRV9BUFBST1ZBTCxST0xFX1VTRVIiLCJpc3MiOiIxbGVhZiIsImV4cCI6MTU0OTUwOTEzNSwidXNlcklkIjoiaXNrd29uIiwidXNlclNlcSI6MX0.VSQd169Gln4h5wqjqA82YWWuUnbOqGxG_0VDZSAGkSM'
+    'Access-Control-Allow-Origin': '*'
   }
 }
 const apiDomain = process.env.VUE_APP_API_DOMAIN
@@ -20,14 +19,6 @@ export default {
       postConfig.headers['jwt-header'] = jwtHeader
       getConfig.headers['jwt-header'] = jwtHeader
       return response
-    },
-    requestGet (url) {
-      if (process.env.VUE_APP_MODE === 'L') {
-        getConfig.headers['jwt-header'] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4sUk9MRV9BUFBST1ZBTCxST0xFX1VTRVIiLCJpc3MiOiIxbGVhZiIsImV4cCI6MTU0OTUwOTEzNSwidXNlcklkIjoiaXNrd29uIiwidXNlclNlcSI6MX0.VSQd169Gln4h5wqjqA82YWWuUnbOqGxG_0VDZSAGkSM'
-      }
-      return this.$http.get(`${apiDomain}${url}`, getConfig)
-    },
-    requestPost () {
     },
     getProjectList () {
       return this.requestGet('/project/list')
