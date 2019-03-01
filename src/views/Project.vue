@@ -90,6 +90,7 @@ export default {
     }
   },
   created () {
+    this.$store.state.isMain = false
     this.init()
   },
   methods: {
@@ -97,10 +98,8 @@ export default {
       const reseponse = await this.getProjectList()
       if (reseponse.status === 200) {
         this.projectList = reseponse.data
-        this.currentProjectList = this.projectList
-                                    .filter(item => this.isCurrentProject(item))
-        this.pastProjectList = this.projectList
-                                 .filter(item => !this.isCurrentProject(item))
+        this.currentProjectList = this.projectList.filter(item => this.isCurrentProject(item))
+        this.pastProjectList = this.projectList.filter(item => !this.isCurrentProject(item))
       }
     },
     handleCurrentProject (event) {

@@ -3,8 +3,8 @@
     <div class="custom-navbar">
       <div class="navbar-button"
            @click="handleNavButton">
-        <v-icon v-if="!isMain" name="chevron-left" style="width: 30px;"></v-icon>
-        <v-icon v-if="isMain" name="menu" style="width: 30px;"></v-icon>
+        <v-icon v-if="!this.$store.state.isMain" name="chevron-left" style="width: 30px;"></v-icon>
+        <v-icon v-if="this.$store.state.isMain" name="menu" style="width: 30px;"></v-icon>
       </div>
       <img class="logo" src="/img/logo.png" />
     </div>
@@ -34,7 +34,6 @@ export default {
   components: {
     Slide
   },
-  props: ['isMain', 'handleBackButton'],
   data () {
     return {
       isOpen: false
@@ -42,10 +41,9 @@ export default {
   },
   methods: {
     handleNavButton (event) {
-      if (this.isMain) {
+      if (this.$store.state.isMain) {
         this.isOpen = true
       } else {
-        this.handleBackButton()
         this.$router.go(-1)
       }
     },
@@ -72,7 +70,7 @@ export default {
 
   .navbar-button {
     float: left;
-    margin: 15px 0 0 20px;
+    margin: 15px 0 0 10px;
   }
 
   .logo {

@@ -39,7 +39,7 @@ export default {
   },
   created () {
     // TODO: getMenuList
-    console.log('created')
+    this.$store.state.isMain = true
   },
   methods: {
   }

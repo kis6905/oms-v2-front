@@ -20,6 +20,12 @@ export default {
       getConfig.headers['jwt-header'] = jwtHeader
       return response
     },
+    requestGet (url) {
+      if (process.env.VUE_APP_MODE === 'L') {
+        getConfig.headers['jwt-header'] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4sUk9MRV9BUFBST1ZBTCxST0xFX1VTRVIiLCJpc3MiOiIxbGVhZiIsImV4cCI6MTU1MTY3NjcxOSwidXNlcklkIjoiaXNrd29uIiwidXNlclNlcSI6MX0.6QVJKAERS2U3j_Yqt-6HIJCgF6BHBilFGkW2URcDaLw'
+      }
+      return this.$http.get(`${apiDomain}${url}`, getConfig)
+    },
     getProjectList () {
       return this.requestGet('/project/list')
     }
