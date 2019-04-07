@@ -101,6 +101,8 @@ export default {
         this.currentProjectList = this.projectList.filter(item => this.isCurrentProject(item))
         this.pastProjectList = this.projectList.filter(item => !this.isCurrentProject(item))
       }
+      this.currentProjectList = this.projectList.filter(item => this.isCurrentProject(item))
+      this.pastProjectList = this.projectList.filter(item => !this.isCurrentProject(item))
     },
     handleCurrentProject (event) {
       const projectSeq = event.currentTarget.dataset.projectSeq

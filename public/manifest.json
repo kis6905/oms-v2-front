@@ -1,6 +1,6 @@
 {
-  "name": "oms-v2-front",
-  "short_name": "oms-v2-front",
+  "name": "Openobject Management System V2",
+  "short_name": "OMS V2",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#4DBA87"
