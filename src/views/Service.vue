@@ -1,11 +1,9 @@
 <template>
   <div class="main-area">
-    <Navbar :isMain="isMain"
-            :handleBackButton="handleBackButton">
-    </Navbar>
+    <Navbar></Navbar>
     <div class="contents">
       <transition-page>
-        <router-view :handle-menu="handleMenu" />
+        <router-view :handle-menu="handleMenu"/>
       </transition-page>
     </div>
   </div>
@@ -26,15 +24,13 @@ export default {
   },
   data () {
     return {
-      isMain: true
     }
   },
+  created () {
+    this.$store.state.isMain = true
+  },
   methods: {
-    handleBackButton () {
-      this.isMain = true
-    },
     handleMenu (event) {
-      this.isMain = false
       this.$router.push('/service' + event.target.dataset.path)
     }
   }
