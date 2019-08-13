@@ -59,10 +59,11 @@
       <p class="my-4">발주처: {{ selectedProject.project ? selectedProject.project.projectClient : '' }}</p>
       <p class="my-4">기간: {{ selectedProject.project ? projectPeriod(selectedProject) : '' }}</p>
       <p class="my-4">상태: {{ projectStatus }}</p>
+      <p class="my-4">역할: {{ selectedProject.projectRoleName }}</p>
       <p class="my-4">내용: {{ selectedProject.project ? selectedProject.project.projectDescription : '' }}</p>
       <div slot="modal-footer">
-         <b-btn size="sm" class="float-right" variant="primary" @click="isShowDetail=false">
-           확인
+         <b-btn size="sm" class="float-right" variant="primary" @click="moveToWeeklyReport">
+           주간보고
          </b-btn>
        </div>
     </b-modal>
@@ -119,6 +120,9 @@ export default {
       return item.project.projectStatus === '0' &&
              this.dateDiff(now, item.withdrawalDate) >= 0 &&
              this.dateDiff(now, item.project.projectEndDate) >= 0
+    },
+    moveToWeeklyReport () {
+      this.$router.push({ name: 'weeklyReport', params: { selectedProject: this.selectedProject }})
     }
   },
   computed: {
