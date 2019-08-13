@@ -8,11 +8,6 @@
                 :block="true"
                 size="lg">Project</b-button>
       <b-button @click="handleMenu"
-                data-path="/weekly_report"
-                variant="outline-primary"
-                :block="true"
-                size="lg">주간보고</b-button>
-      <b-button @click="handleMenu"
                 data-path="/admin/user"
                 variant="outline-primary"
                 :block="true"

@@ -35,9 +35,11 @@ export default new Router({
           meta: { transitionName: 'slide' }
         },
         {
-          path: 'weekly_report',
+          name: 'weeklyReport',
+          path: 'weeklyReport',
           component: WeeklyReport,
-          meta: { transitionName: 'slide' }
+          meta: { transitionName: 'slide' },
+          props: true
         }
       ]
     }
