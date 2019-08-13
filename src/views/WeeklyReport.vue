@@ -6,8 +6,7 @@
     </div>
     <div class="list-area">
       <b-button @click="handleMenu"
-                data-
-                =""
+                data-seq="test"
                 variant="outline-info"
                 :block="true"
                 size="lg">직원관리</b-button>
