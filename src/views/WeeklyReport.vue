@@ -5,7 +5,7 @@
       {{ selectedProject.project.projectName }} 주간보고
     </div>
     <div class="list-area">
-      <b-button @click="handleMenu"
+      <b-button @click="todo"
                 data-seq="test"
                 variant="outline-info"
                 :block="true"
@@ -37,6 +37,7 @@ export default {
   },
   methods: {
     async init () {
+      // TODO: 프로젝트의 주간 목록 가져오기
     }
   },
   computed: {
