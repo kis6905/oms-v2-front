@@ -5,7 +5,7 @@
       {{ selectedProject.project.projectName }} 주간보고
     </div>
     <div class="list-area">
-      <b-button @click="todo"
+      <b-button @click="handleClickWeeklyReport"
                 data-seq="test"
                 variant="outline-info"
                 :block="true"
@@ -28,16 +28,29 @@ export default {
   props: ['selectedProject'],
   data () {
     return {
+      weeklyReportList: []
     }
   },
   created () {
     this.$store.state.isMain = false
     this.init()
-    console.log(this.selectedProject)
   },
   methods: {
     async init () {
-      // TODO: 프로젝트의 주간 목록 가져오기
+      const reseponse = await this.getWeeklyReportList(this.selectedProject.seq)
+      if (reseponse.status === 200) {
+        const weeklyReportList = reseponse.data
+        const inputDate = this.selectedProject.inputDate
+        const withdrawalDate = this.selectedProject.withdrawalDate
+        const weekDiff = this.weekDiff(inputDate, withdrawalDate)
+        /*
+         * TODO: 1. inputDate 부터 시작해서 loop 돌리며 월, 금요일의 일 수를 구해야 함. 토, 일요일은 다음 월요일이 시작
+         *       2. week 수를 가지고 loop 돌려 list 만들기 / 서버에서 받은 weeklyReportList로 사이사이 껴넣기
+         */
+      }
+    },
+    handleClickWeeklyReport () {
+
     }
   },
   computed: {

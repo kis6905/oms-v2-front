@@ -26,13 +26,16 @@ export default {
       return response
     },
     requestGet (url) {
-      // if (process.env.VUE_APP_MODE === 'L') {
-      //   getConfig.headers['jwt-header'] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4sUk9MRV9BUFBST1ZBTCxST0xFX1VTRVIiLCJpc3MiOiIxbGVhZiIsImV4cCI6MTU1NTEyNDMyOSwidXNlcklkIjoiaXNrd29uIiwidXNlclNlcSI6MX0.k-SLA6KCv1gHn9b-fFgzVS2AWiUzIFE0ZUlMOP7oO4M'
-      // }
+      if (process.env.VUE_APP_MODE === 'L') {
+        getConfig.headers['jwt-header'] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4sUk9MRV9BUFBST1ZBTCxST0xFX1VTRVIiLCJpc3MiOiIxbGVhZiIsImV4cCI6MTU2NjEwNDczNSwidXNlcklkIjoiaXNrd29uIiwidXNlclNlcSI6MX0.AKoa6jxywjem211EPhxl_DJtOpre7gIM8upxGgeY-mc'
+      }
       return this.$http.get(`${apiDomain}${url}`, getConfig)
     },
     getProjectList () {
       return this.requestGet('/project/list')
+    },
+    getWeeklyReportList (projectSeq) {
+      return this.requestGet(`/project/${projectSeq}/weeklyReport/list`)
     }
   }
 }
