@@ -1,6 +1,16 @@
 Date.prototype.getWeek = function () {
-  var onejan = new Date(this.getFullYear(), 0, 1)
+  const onejan = new Date(this.getFullYear(), 0, 1)
   return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7)
+}
+Date.prototype.yyyymmdd = function(format) {
+  var mm = this.getMonth() + 1
+  var dd = this.getDate()
+  const dateString = [this.getFullYear(), (mm > 9 ? '' : '0') + mm, (dd > 9 ? '' : '0') + dd].join('-')
+  if (format === 'yyyy-mm-dd') {
+    return dateString
+  } else {
+    return dateString.replace(/-/g, '')
+  }
 }
 
 export default {
@@ -28,6 +38,25 @@ export default {
       } else {
         return date2Week - date1Week + 1
       }
+    },
+    getMondayDateFrom (date) {
+      const day = date.getDay()
+      let addDay = 0
+      if (day === 6 || day === 0) {
+        addDay = day === 6 ? 2 : 1
+      } else {
+        addDay = -(day - 1)
+      }
+      date.setDate(date.getDate() + addDay)
+      return date
+    },
+    parseJwt (token) {
+      var base64Url = token.split('.')[1]
+      var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+      var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+      }).join(''))
+      return JSON.parse(jsonPayload);
     }
   }
 }

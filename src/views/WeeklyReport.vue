@@ -5,11 +5,15 @@
       {{ selectedProject.project.projectName }} 주간보고
     </div>
     <div class="list-area">
-      <b-button @click="handleClickWeeklyReport"
+      <b-button v-for="item in weeklyReportList"
+                :key="item.weeklyDate"
+                @click="handleClickWeeklyReport"
                 data-seq="test"
                 variant="outline-info"
                 :block="true"
-                size="lg">직원관리</b-button>
+                size="">{{ item.monday }} ~ {{ item.friday }}
+                <v-icon name="check" v-if="item.registeredDate"></v-icon>
+      </b-button>
     </div>
   </div>
 </template>
@@ -40,13 +44,38 @@ export default {
       const reseponse = await this.getWeeklyReportList(this.selectedProject.seq)
       if (reseponse.status === 200) {
         const weeklyReportList = reseponse.data
-        const inputDate = this.selectedProject.inputDate
-        const withdrawalDate = this.selectedProject.withdrawalDate
-        const weekDiff = this.weekDiff(inputDate, withdrawalDate)
-        /*
-         * TODO: 1. inputDate 부터 시작해서 loop 돌리며 월, 금요일의 일 수를 구해야 함. 토, 일요일은 다음 월요일이 시작
-         *       2. week 수를 가지고 loop 돌려 list 만들기 / 서버에서 받은 weeklyReportList로 사이사이 껴넣기
-         */
+        const inputDateString = this.selectedProject.inputDate
+        const withdrawalDateString = this.selectedProject.withdrawalDate
+        const weekDiff = this.weekDiff(inputDateString, withdrawalDateString)
+        const inputDate = new Date(inputDateString)
+        let tempDate = this.getMondayDateFrom(inputDate)
+
+        const userInfo = this.$store.state.userInfo
+
+        for (let idx = 0; idx < weekDiff; idx++) {
+          const mondayDateString = tempDate.yyyymmdd('yyyy-mm-dd')
+          tempDate.setDate(tempDate.getDate() + 4) // move to this friday
+          const fridayDateString = tempDate.yyyymmdd('yyyy-mm-dd')
+
+          const weeklyDate = mondayDateString.replace(/-/g, '') + fridayDateString.replace(/-/g, '')
+          const weeklyReport = weeklyReportList.find(e => e.weeklyDate === weeklyDate)
+
+          this.weeklyReportList.push({
+            weeklyDate: weeklyDate,
+            monday: mondayDateString,
+            friday: fridayDateString,
+            seq: null,
+            userSeq: userInfo.userSeq,
+            projectSeq: this.selectedProject.seq,
+            thisWeekTask: weeklyReport ? weeklyReport.thisWeekTask : null,
+            nextWeekTask: weeklyReport ? weeklyReport.nextWeekTask : null,
+            issueContents: weeklyReport ? weeklyReport.issueContents : null,
+            registeredDate: weeklyReport ? weeklyReport.registeredDate : null,
+            modifiedDate: weeklyReport ? weeklyReport.modifiedDate : null
+          })
+
+          tempDate.setDate(tempDate.getDate() + 3) // move to next monday
+        }
       }
     },
     handleClickWeeklyReport () {
@@ -71,5 +100,18 @@ export default {
 }
 .list-area {
   padding: 15px 15px 15px 15px;
+
+  .icon-check {
+    position: absolute;
+    margin-left: 10px;
+    color: red;
+  }
+}
+button:hover,
+button:not(:disabled):not(.disabled):active,
+button:not(:disabled):not(.disabled).active,
+.show > button.dropdown-toggle {
+  color: #17a2b8;
+  background-color: #fff0;
 }
 </style>
