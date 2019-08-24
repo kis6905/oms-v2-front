@@ -27,7 +27,7 @@ export default {
     },
     requestGet (url) {
       if (process.env.VUE_APP_MODE === 'L') {
-        getConfig.headers['jwt-header'] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4sUk9MRV9BUFBST1ZBTCxST0xFX1VTRVIiLCJpc3MiOiJkZXZlbGVhZiIsImV4cCI6MTU2NjI3ODkzMCwidXNlcklkIjoiaXNrd29uIiwidXNlclNlcSI6MX0.yF5rGTSPA0v0iua4uUHa5ZOBfsOWUtaiegIq8FwpC9k'
+        getConfig.headers['jwt-header'] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4sUk9MRV9BUFBST1ZBTCxST0xFX1VTRVIiLCJpc3MiOiJkZXZlbGVhZiIsIm5hbWUiOiLqtozsnbzsiJgiLCJyYW5rIjoi64yA66asIiwiZXhwIjoxNTY2ODg0NzgwLCJ1c2VySWQiOiJpc2t3b24iLCJ1c2VyU2VxIjoxfQ.hNNFHiRbRCzItg9-ecG7K0Kv_cmaXssWC5F3eMf0l34'
       }
       return this.$http.get(`${apiDomain}${url}`, getConfig)
     },

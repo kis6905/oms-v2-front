@@ -8,13 +8,56 @@
       <b-button v-for="item in weeklyReportList"
                 :key="item.weeklyDate"
                 @click="handleClickWeeklyReport"
-                data-seq="test"
+                :data-weekly-date="item.weeklyDate"
                 variant="outline-info"
                 :block="true"
                 size="">{{ item.monday }} ~ {{ item.friday }}
                 <v-icon name="check" v-if="item.registeredDate"></v-icon>
       </b-button>
     </div>
+    <b-modal v-model="isShowDetail"
+             centered
+             ok-only
+             header-bg-variant="primary"
+             header-text-variant="light"
+             header-border-variant="primary"
+             footer-bg-variant="light"
+             footer-text-variant="dark"
+             :title="this.selectedWeeklyReportTitle">
+      
+      <p class="task-title">금주 진행 업무
+        <span data-task-id="thisWeekTask" @click="handleTaskCopy"><v-icon name="copy"></v-icon></span>
+      </p>
+      <b-form-textarea id="thisWeekTask"
+                       v-model="thisWeekTask"
+                       placeholder="내용을 입력하세요"
+                       rows="3"
+                       max-rows="3">
+      </b-form-textarea>
+      <p class="task-title">차주 예정 업무 
+        <span data-task-id="nextWeekTask" @click="handleTaskCopy"><v-icon name="copy"></v-icon></span>
+      </p>
+      <b-form-textarea id="nextWeekTask"
+                       v-model="nextWeekTask"
+                       placeholder="내용을 입력하세요"
+                       rows="3"
+                       max-rows="3">
+      </b-form-textarea>
+      <p class="task-title">이슈 사항 
+        <span data-task-id="issueContents" @click="handleTaskCopy"><v-icon name="copy"></v-icon></span>
+      </p>
+      <b-form-textarea id="issueContents"
+                       v-model="issueContents"
+                       placeholder="내용을 입력하세요"
+                       rows="3"
+                       max-rows="3">
+      </b-form-textarea>
+      <div slot="modal-footer">
+         <b-btn size="sm" class="float-right" variant="primary" @click="handleSave">
+           저장
+         </b-btn>
+       </div>
+    </b-modal>
   </div>
 </template>
 
@@ -32,7 +75,12 @@ export default {
   props: ['selectedProject'],
   data () {
     return {
-      weeklyReportList: []
+      weeklyReportList: [],
+      isShowDetail: false,
+      selectedWeeklyReport: null,
+      thisWeekTask: null,
+      nextWeekTask: null,
+      issueContents: null
     }
   },
   created () {
@@ -78,11 +126,31 @@ export default {
         }
       }
     },
-    handleClickWeeklyReport () {
-
+    handleClickWeeklyReport (event) {
+      this.isShowDetail = true
+      this.selectedWeeklyReport = { ...this.weeklyReportList.find((weeklyReport) => weeklyReport.weeklyDate === event.target.dataset.weeklyDate) }
+      if (this.selectedWeeklyReport) {
+        this.thisWeekTask = this.selectedWeeklyReport.thisWeekTask
+        this.nextWeekTask = this.selectedWeeklyReport.nextWeekTask
+        this.issueContents = this.selectedWeeklyReport.issueContents
+      }
+    },
+    handleSave () {
+      // TODO: 서버 API 개발 후 호출
+    },
+    handleTaskCopy (event) {
+      const element = document.getElementById(event.currentTarget.dataset.taskId)
+      element.select()
+      document.execCommand('copy')
+      element.blur()
+      alert('클립보드에 복사 되었습니다.')
     }
   },
   computed: {
+    selectedWeeklyReportTitle () {
+      if (!this.selectedWeeklyReport) return ''
+      return `${this.selectedWeeklyReport.monday} ~ ${this.selectedWeeklyReport.friday}`
+    }
   }
 }
 </script>
@@ -113,5 +181,9 @@ button:not(:disabled):not(.disabled).active,
 .show > button.dropdown-toggle {
   color: #17a2b8;
   background-color: #fff0;
+}
+.task-title{
+  margin-top: 15px;
+  margin-bottom: 5px;
 }
 </style>
