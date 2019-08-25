@@ -24,7 +24,6 @@
              footer-bg-variant="light"
              footer-text-variant="dark"
              :title="this.selectedWeeklyReportTitle">
-      
       <p class="task-title">금주 진행 업무
         <span data-task-id="thisWeekTask" @click="handleTaskCopy"><v-icon name="copy"></v-icon></span>
       </p>
@@ -34,7 +33,7 @@
                        rows="3"
                        max-rows="3">
       </b-form-textarea>
-      <p class="task-title">차주 예정 업무 
+      <p class="task-title">차주 예정 업무
         <span data-task-id="nextWeekTask" @click="handleTaskCopy"><v-icon name="copy"></v-icon></span>
       </p>
       <b-form-textarea id="nextWeekTask"
@@ -43,7 +42,7 @@
                        rows="3"
                        max-rows="3">
       </b-form-textarea>
-      <p class="task-title">이슈 사항 
+      <p class="task-title">이슈 사항
         <span data-task-id="issueContents" @click="handleTaskCopy"><v-icon name="copy"></v-icon></span>
       </p>
       <b-form-textarea id="issueContents"
@@ -62,16 +61,13 @@
 </template>
 
 <script>
-import EmptyData from '../components/common/EmptyData.vue'
 import common from '../assets/js/common'
 import api from '../assets/js/api'
 
 export default {
   name: 'weeklyReport',
   mixins: [common, api],
-  components: {
-    EmptyData
-  },
+  components: {},
   props: ['selectedProject'],
   data () {
     return {
@@ -89,9 +85,9 @@ export default {
   },
   methods: {
     async init () {
-      const reseponse = await this.getWeeklyReportList(this.selectedProject.seq)
-      if (reseponse.status === 200) {
-        const weeklyReportList = reseponse.data
+      const response = await this.getWeeklyReportList(this.selectedProject.seq)
+      if (response.status === 200) {
+        const weeklyReportList = response.data
         const inputDateString = this.selectedProject.inputDate
         const withdrawalDateString = this.selectedProject.withdrawalDate
         const weekDiff = this.weekDiff(inputDateString, withdrawalDateString)
@@ -112,7 +108,7 @@ export default {
             weeklyDate: weeklyDate,
             monday: mondayDateString,
             friday: fridayDateString,
-            seq: null,
+            seq: weeklyReport ? weeklyReport.seq : null,
             userSeq: userInfo.userSeq,
             projectSeq: this.selectedProject.seq,
             thisWeekTask: weeklyReport ? weeklyReport.thisWeekTask : null,
@@ -128,15 +124,34 @@ export default {
     },
     handleClickWeeklyReport (event) {
       this.isShowDetail = true
-      this.selectedWeeklyReport = { ...this.weeklyReportList.find((weeklyReport) => weeklyReport.weeklyDate === event.target.dataset.weeklyDate) }
+      this.selectedWeeklyReport = { ...this.weeklyReportList.find((weeklyReport) => weeklyReport.weeklyDate === event.currentTarget.dataset.weeklyDate) }
       if (this.selectedWeeklyReport) {
         this.thisWeekTask = this.selectedWeeklyReport.thisWeekTask
         this.nextWeekTask = this.selectedWeeklyReport.nextWeekTask
         this.issueContents = this.selectedWeeklyReport.issueContents
       }
     },
-    handleSave () {
-      // TODO: 서버 API 개발 후 호출
+    async handleSave () {
+      this.selectedWeeklyReport.thisWeekTask = this.thisWeekTask
+      this.selectedWeeklyReport.nextWeekTask = this.nextWeekTask
+      this.selectedWeeklyReport.issueContents = this.issueContents
+
+      const param = { ...this.selectedWeeklyReport }
+
+      const response = await this.saveWeeklyReport(param)
+      if (response.status === 200) {
+        const responseData = response.data
+        console.log(responseData)
+        responseData.monday = this.selectedWeeklyReport.monday
+        responseData.friday = this.selectedWeeklyReport.friday
+        for (let idx = 0; idx < this.weeklyReportList.length; idx++) {
+          let weeklyReport = this.weeklyReportList[idx]
+          if (weeklyReport.weeklyDate === this.selectedWeeklyReport.weeklyDate) {
+            this.weeklyReportList[idx] = responseData
+          }
+        }
+        this.isShowDetail = false
+      }
     },
     handleTaskCopy (event) {
       const element = document.getElementById(event.currentTarget.dataset.taskId)
