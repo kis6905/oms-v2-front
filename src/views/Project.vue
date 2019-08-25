@@ -15,7 +15,7 @@
                   header-bg-variant="info"
                   header-text-variant="white"
                   align="center"
-                  @click="handleCurrentProject"
+                  @click="handleClickProject"
                   :data-project-seq="item.seq">
             <p class="card-text">발주처: {{ item.project.projectClient }}</p>
             <p class="card-text">기간: {{ projectPeriod(item) }}</p>
@@ -38,7 +38,7 @@
                   header-bg-variant="default"
                   header-text-variant="black"
                   align="center"
-                  @click="handleCurrentProject"
+                  @click="handleClickProject"
                   :data-project-seq="item.seq">
             <p class="card-text">발주처: {{ item.project.projectClient }}</p>
             <p class="card-text">기간: {{ projectPeriod(item) }}</p>
@@ -58,11 +58,12 @@
              :title="selectedProject.project ? selectedProject.project.projectName : ''">
       <p class="my-4">발주처: {{ selectedProject.project ? selectedProject.project.projectClient : '' }}</p>
       <p class="my-4">기간: {{ selectedProject.project ? projectPeriod(selectedProject) : '' }}</p>
+      <p class="my-4">투입 기간: {{ selectedProject.project ? projectInputPeriod(selectedProject) : '' }}</p>
       <p class="my-4">상태: {{ projectStatus }}</p>
       <p class="my-4">역할: {{ selectedProject.projectRoleName }}</p>
       <p class="my-4">내용: {{ selectedProject.project ? selectedProject.project.projectDescription : '' }}</p>
       <div slot="modal-footer">
-         <b-btn size="sm" class="float-right" variant="primary" @click="moveToWeeklyReport">
+         <b-btn size="sm" class="float-right" variant="primary" @click="handleClickWeeklyReport">
            주간보고
          </b-btn>
        </div>
@@ -105,7 +106,7 @@ export default {
       this.currentProjectList = this.projectList.filter(item => this.isCurrentProject(item))
       this.pastProjectList = this.projectList.filter(item => !this.isCurrentProject(item))
     },
-    handleCurrentProject (event) {
+    handleClickProject (event) {
       const projectSeq = event.currentTarget.dataset.projectSeq
       this.selectedProject = this.projectList.find(item => String(item.project.seq) === projectSeq)
       this.isShowDetail = true
@@ -114,6 +115,10 @@ export default {
       if (!item || !item.project) return ''
       return `${item.project.projectStartDate.substring(0, 10)} ~ ${item.project.projectEndDate.substring(0, 10)}`
     },
+    projectInputPeriod (item) {
+      if (!item || !item.project) return ''
+      return `${item.inputDate.substring(0, 10)} ~ ${item.withdrawalDate.substring(0, 10)}`
+    },
     isCurrentProject (item) {
       const now = new Date()
       if (!item || !item.project) return false
@@ -121,7 +126,7 @@ export default {
              this.dateDiff(now, item.withdrawalDate) >= 0 &&
              this.dateDiff(now, item.project.projectEndDate) >= 0
     },
-    moveToWeeklyReport () {
+    handleClickWeeklyReport () {
       this.$router.push({ name: 'weeklyReport', params: { selectedProject: this.selectedProject }})
     }
   },
