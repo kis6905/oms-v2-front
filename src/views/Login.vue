@@ -42,7 +42,6 @@ export default {
         const response = await this.login({ userId: this.userId, password: this.password })
         const jwt = response.headers['jwt-header']
         const payload = this.parseJwt(jwt)
-        console.log(payload)
         this.$store.state.userInfo = payload
       } catch (e) {
         console.error(e)

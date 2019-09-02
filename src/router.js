@@ -5,6 +5,7 @@ import Service from './views/Service.vue'
 import Main from './views/Main.vue'
 import Project from './views/Project.vue'
 import WeeklyReport from './views/WeeklyReport.vue'
+import AdminUser from './views/AdminUser.vue'
 
 Vue.use(Router)
 
@@ -40,6 +41,11 @@ export default new Router({
           component: WeeklyReport,
           meta: { transitionName: 'slide' },
           props: true
+        },
+        {
+          path: 'admin/user',
+          component: AdminUser,
+          meta: { transitionName: 'slide' }
         }
       ]
     }

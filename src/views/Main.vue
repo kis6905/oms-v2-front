@@ -9,7 +9,7 @@
                 size="lg">Project</b-button>
       <b-button @click="handleMenu"
                 data-path="/admin/user"
-                variant="outline-primary"
+                variant="outline-danger"
                 :block="true"
                 size="lg">직원관리</b-button>
     </div>

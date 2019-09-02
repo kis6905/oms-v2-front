@@ -28,15 +28,15 @@ export default {
       return response
     },
     requestGet (url) {
-      if (process.env.VUE_APP_MODE === 'L') {
-        getConfig.headers['jwt-header'] = jwtForLocal
-      }
+      // if (process.env.VUE_APP_MODE === 'L') {
+      //   getConfig.headers['jwt-header'] = jwtForLocal
+      // }
       return this.$http.get(`${apiDomain}${url}`, getConfig)
     },
     requestPost (url, data) {
-      if (process.env.VUE_APP_MODE === 'L') {
-        postConfig.headers['jwt-header'] = jwtForLocal
-      }
+      // if (process.env.VUE_APP_MODE === 'L') {
+      //   postConfig.headers['jwt-header'] = jwtForLocal
+      // }
       let form = new FormData()
       for (let paramName in data) {
         const value = data[paramName]
