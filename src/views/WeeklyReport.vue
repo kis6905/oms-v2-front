@@ -25,7 +25,7 @@
              footer-text-variant="dark"
              :title="this.selectedWeeklyReportTitle">
       <p class="task-title">금주 진행 업무
-        <span data-task-id="thisWeekTask" @click="handleTaskCopy"><v-icon name="copy"></v-icon></span>
+        <span data-task-id="thisWeekTask" @click="handleCopyTask"><v-icon name="copy"></v-icon></span>
       </p>
       <b-form-textarea id="thisWeekTask"
                        v-model="thisWeekTask"
@@ -34,7 +34,7 @@
                        max-rows="3">
       </b-form-textarea>
       <p class="task-title">차주 예정 업무
-        <span data-task-id="nextWeekTask" @click="handleTaskCopy"><v-icon name="copy"></v-icon></span>
+        <span data-task-id="nextWeekTask" @click="handleCopyTask"><v-icon name="copy"></v-icon></span>
       </p>
       <b-form-textarea id="nextWeekTask"
                        v-model="nextWeekTask"
@@ -43,7 +43,7 @@
                        max-rows="3">
       </b-form-textarea>
       <p class="task-title">이슈 사항
-        <span data-task-id="issueContents" @click="handleTaskCopy"><v-icon name="copy"></v-icon></span>
+        <span data-task-id="issueContents" @click="handleCopyTask"><v-icon name="copy"></v-icon></span>
       </p>
       <b-form-textarea id="issueContents"
                        v-model="issueContents"
@@ -153,7 +153,7 @@ export default {
         this.isShowDetail = false
       }
     },
-    handleTaskCopy (event) {
+    handleCopyTask (event) {
       const element = document.getElementById(event.currentTarget.dataset.taskId)
       element.select()
       document.execCommand('copy')
@@ -171,16 +171,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.title {
-  width: 100%;
-  color: white;
-  background: linear-gradient(-45deg, #863fe6, #1a94ce);
-  margin-top: 1px;
-  text-align: center;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 5px 0 5px 0;
-}
 .list-area {
   padding: 15px 15px 15px 15px;
 

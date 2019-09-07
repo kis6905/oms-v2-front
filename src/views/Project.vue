@@ -127,7 +127,7 @@ export default {
              this.dateDiff(now, item.project.projectEndDate) >= 0
     },
     handleClickWeeklyReport () {
-      this.$router.push({ name: 'weeklyReport', params: { selectedProject: this.selectedProject }})
+      this.$router.push({ name: 'weeklyReport', params: { selectedProject: this.selectedProject } })
     }
   },
   computed: {
@@ -140,17 +140,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.title {
-  width: 100%;
-  color: white;
-  background: linear-gradient(-45deg, #863fe6, #1a94ce);
-  margin-top: 1px;
-  text-align: center;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 5px 0 5px 0;
-}
-
 .list-container {
   margin: 10px 20px;
 }

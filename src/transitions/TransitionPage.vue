@@ -64,7 +64,7 @@ export default {
 <style lang="less">
 .fade-enter-active,
 .fade-leave-active {
-  transition-duration: 1.0s;
+  transition-duration: 0.3s;
   transition-property: height, opacity;
   transition-timing-function: ease;
   overflow: hidden;
@@ -79,7 +79,7 @@ export default {
 .slide-left-leave-active,
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition-duration: 0.4s;
+  transition-duration: 0.3s;
   transition-property: height, opacity, transform;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
   overflow: hidden;

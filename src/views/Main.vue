@@ -2,12 +2,12 @@
   <div>
     <Notice></Notice>
     <div class="menu-button-area">
-      <b-button @click="handleMenu"
+      <b-button @click="handleClickMenu"
                 data-path="/project"
                 variant="outline-primary"
                 :block="true"
                 size="lg">Project</b-button>
-      <b-button @click="handleMenu"
+      <b-button @click="handleClickMenu"
                 data-path="/admin/user"
                 variant="outline-danger"
                 :block="true"
@@ -27,7 +27,7 @@ export default {
   components: {
     Notice
   },
-  props: ['handleMenu'],
+  props: ['handleClickMenu'],
   data () {
     return {
     }
@@ -40,6 +40,19 @@ export default {
   }
 }
 </script>
+
+<style lang="less">
+.title {
+  width: 100%;
+  color: white;
+  background: linear-gradient(-45deg, #863fe6, #1a94ce);
+  margin-top: 1px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 5px 0 5px 0;
+}
+</style>
 
 <style lang="less" scoped>
 .menu-button-area {

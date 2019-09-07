@@ -10,7 +10,7 @@ const postConfig = {
   }
 }
 const apiDomain = process.env.VUE_APP_API_DOMAIN
-const jwtForLocal = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4sUk9MRV9BUFBST1ZBTCxST0xFX1VTRVIiLCJpc3MiOiJkZXZlbGVhZiIsIm5hbWUiOiLqtozsnbzsiJgiLCJyYW5rIjoi64yA66asIiwiZXhwIjoxNTY2ODg0NzgwLCJ1c2VySWQiOiJpc2t3b24iLCJ1c2VyU2VxIjoxfQ.hNNFHiRbRCzItg9-ecG7K0Kv_cmaXssWC5F3eMf0l34'
+const jwtForLocal = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6IlJPTEVfQURNSU4sUk9MRV9BUFBST1ZBTCxST0xFX1VTRVIiLCJpc3MiOiJkZXZlbGVhZiIsIm5hbWUiOiLqtozsnbzsiJgiLCJyYW5rIjoi64yA66asIiwiZXhwIjoxNTY4MDk0Mjk3LCJ1c2VySWQiOiJpc2t3b24iLCJ1c2VyU2VxIjoxfQ.FoLvNohtgFUYp732PUtUOLGfCF5p2NTBQJ6BCRmKbVE'
 
 export default {
   methods: {
@@ -28,15 +28,15 @@ export default {
       return response
     },
     requestGet (url) {
-      // if (process.env.VUE_APP_MODE === 'L') {
-      //   getConfig.headers['jwt-header'] = jwtForLocal
-      // }
+      if (process.env.VUE_APP_MODE === 'L') {
+        getConfig.headers['jwt-header'] = jwtForLocal
+      }
       return this.$http.get(`${apiDomain}${url}`, getConfig)
     },
     requestPost (url, data) {
-      // if (process.env.VUE_APP_MODE === 'L') {
-      //   postConfig.headers['jwt-header'] = jwtForLocal
-      // }
+      if (process.env.VUE_APP_MODE === 'L') {
+        postConfig.headers['jwt-header'] = jwtForLocal
+      }
       let form = new FormData()
       for (let paramName in data) {
         const value = data[paramName]
@@ -54,6 +54,9 @@ export default {
     },
     saveWeeklyReport (data) {
       return this.requestPost(`/project/${data.projectSeq}/weeklyReport`, data)
+    },
+    getUserList () {
+      return this.requestGet('/admin/user/list')
     }
   }
 }

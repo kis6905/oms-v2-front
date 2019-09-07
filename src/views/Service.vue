@@ -3,7 +3,7 @@
     <Navbar></Navbar>
     <div class="contents">
       <transition-page>
-        <router-view :handle-menu="handleMenu"/>
+        <router-view :handle-click-menu="handleClickMenu"/>
       </transition-page>
     </div>
   </div>
@@ -30,7 +30,7 @@ export default {
     this.$store.state.isMain = true
   },
   methods: {
-    handleMenu (event) {
+    handleClickMenu (event) {
       this.$router.push('/service' + event.target.dataset.path)
     }
   }
