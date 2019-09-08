@@ -6,12 +6,12 @@
                 data-path="/project"
                 variant="outline-primary"
                 :block="true"
-                size="lg">Project</b-button>
+                size="lg">프로젝트</b-button>
       <b-button @click="handleClickMenu"
                 data-path="/admin/user"
                 variant="outline-danger"
                 :block="true"
-                size="lg">직원관리</b-button>
+                size="lg">회원관리</b-button>
     </div>
   </div>
 </template>

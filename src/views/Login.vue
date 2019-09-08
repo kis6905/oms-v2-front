@@ -2,7 +2,7 @@
   <div class="login-area" ref="loginArea">
     <div class="form-area" id="formArea">
       <img class="logo" src="/img/logo.png" />
-      <p class="title">OpenObject MS v2.0</p>
+      <p class="login-title">OpenObject MS v2.0</p>
       <b-form-input v-model="userId"
                     type="text"
                     placeholder="ID"></b-form-input>
@@ -78,7 +78,7 @@ export default {
     .logo {
       width: 100%;
     }
-    .title {
+    .login-title {
       color: white;
       margin-top: 0.5rem;
       margin-bottom: 1rem;

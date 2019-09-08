@@ -1,10 +1,13 @@
+// eslint-disable-next-line no-extend-native
 Date.prototype.getWeek = function () {
   const onejan = new Date(this.getFullYear(), 0, 1)
   return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7)
 }
-Date.prototype.yyyymmdd = function(format) {
-  var mm = this.getMonth() + 1
-  var dd = this.getDate()
+
+// eslint-disable-next-line no-extend-native
+Date.prototype.yyyymmdd = function (format) {
+  let mm = this.getMonth() + 1
+  let dd = this.getDate()
   const dateString = [this.getFullYear(), (mm > 9 ? '' : '0') + mm, (dd > 9 ? '' : '0') + dd].join('-')
   if (format === 'yyyy-mm-dd') {
     return dateString
@@ -51,12 +54,12 @@ export default {
       return date
     },
     parseJwt (token) {
-      var base64Url = token.split('.')[1]
-      var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
-      var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+      const base64Url = token.split('.')[1]
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
       }).join(''))
-      return JSON.parse(jsonPayload);
+      return JSON.parse(jsonPayload)
     }
   }
 }
