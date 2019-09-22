@@ -71,7 +71,6 @@ button:hover,
 button:not(:disabled):not(.disabled):active,
 button:not(:disabled):not(.disabled).active,
 .show > button.dropdown-toggle {
-  color: #007bff;
   background-color: #fff0;
 }
 </style>
