@@ -1,5 +1,7 @@
 # oms-v2-front
 
+## 잠정 중단...
+
 ## Project setup
 ```
 yarn install
